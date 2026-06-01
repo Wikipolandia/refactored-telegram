@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import ListingForm from "@/components/tool/ListingForm";
 import CopyButton from "@/components/ui/CopyButton";
+import Logo from "@/components/ui/Logo";
 import { computeScore } from "@/lib/compliance/score";
 import { buildComplianceReport } from "@/lib/format/complianceReport";
 import { emptyListingInput, type ListingInput } from "@/types/inputs";
@@ -93,6 +94,12 @@ export default function ConciergeView() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-8">
       <div className="no-print">
+        <div className="mb-3 flex items-center gap-3">
+          <Logo />
+          <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-500">
+            concierge
+          </span>
+        </div>
         <h1 className="text-2xl font-bold text-ink">Concierge mode</h1>
         <p className="mb-6 text-sm text-slate-500">
           Generate a full, polished listing pack for a named agent — copy or print to

@@ -1,5 +1,6 @@
 import type { AnalyticsSnapshot } from "@/types/analytics";
 import { TONE_LABELS, type Tone } from "@/types/inputs";
+import Logo from "@/components/ui/Logo";
 
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -29,8 +30,13 @@ export default function MetricsPanels({ data }: { data: AnalyticsSnapshot }) {
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-8">
-      <h1 className="text-2xl font-bold text-ink">Kerbly — admin</h1>
-      <p className="mb-6 text-xs text-slate-400">
+      <div className="flex items-center gap-3">
+        <Logo />
+        <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-500">
+          admin
+        </span>
+      </div>
+      <p className="mb-6 mt-2 text-xs text-slate-400">
         In-memory metrics (reset on redeploy / cold start). Directional only — DB is v2.
       </p>
 
