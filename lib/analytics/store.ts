@@ -37,11 +37,11 @@ function startOfToday(): number {
   return d.getTime();
 }
 
-const g = globalThis as unknown as { __listpilotStore?: Store };
+const g = globalThis as unknown as { __kerblyStore?: Store };
 
 function store(): Store {
-  if (!g.__listpilotStore) {
-    g.__listpilotStore = {
+  if (!g.__kerblyStore) {
+    g.__kerblyStore = {
       startOfDay: startOfToday(),
       generationsTotal: 0,
       generationsToday: 0,
@@ -57,7 +57,7 @@ function store(): Store {
     };
   }
   // Roll the "today" counter over at midnight.
-  const s = g.__listpilotStore;
+  const s = g.__kerblyStore;
   if (s.startOfDay !== startOfToday()) {
     s.startOfDay = startOfToday();
     s.generationsToday = 0;

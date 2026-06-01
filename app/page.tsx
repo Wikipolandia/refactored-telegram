@@ -13,7 +13,7 @@ export default function HomePage() {
       <Hero />
       <ToolApp checkoutOnce={checkoutOnce} checkoutSub={checkoutSub} />
       <footer className="border-t border-slate-200 py-6 text-center text-xs text-slate-400">
-        ListPilot — compliance assistance only, not legal advice.
+        Kerbly — compliance assistance only, not legal advice.
       </footer>
     </main>
   );

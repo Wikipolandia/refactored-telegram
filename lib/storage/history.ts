@@ -3,7 +3,7 @@ import type { GenerationOutput } from "@/types/outputs";
 // Guarded localStorage generation history. TODO(v2): replace with a database
 // (saved generations per branch).
 
-const KEY = "listpilot_history";
+const KEY = "kerbly_history";
 const MAX = 20;
 
 export interface HistoryEntry {

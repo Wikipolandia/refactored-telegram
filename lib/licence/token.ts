@@ -6,7 +6,7 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 // server verifies it here. No new dependency — Node's built-in crypto only.
 
 function secret(): string {
-  return process.env.LICENCE_SECRET ?? "listpilot-dev-secret";
+  return process.env.LICENCE_SECRET ?? "kerbly-dev-secret";
 }
 
 export function signLicence(key: string): string {

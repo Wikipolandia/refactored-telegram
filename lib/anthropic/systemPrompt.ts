@@ -1,4 +1,4 @@
-// Verbatim ListPilot LLM system prompt. Kept free of interpolated dates/IDs so it
+// Verbatim Kerbly LLM system prompt. Kept free of interpolated dates/IDs so it
 // is byte-stable. (No prompt caching in v1 — this prompt is below the model's
 // cache-minimum token threshold. TODO: add cache_control once it grows past it.)
 

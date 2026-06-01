@@ -9,7 +9,7 @@ export function buildComplianceReport(
   adjustments: ComplianceAdjustment[],
 ): string {
   const lines: string[] = [];
-  lines.push(`ListPilot Compliance Check — ${address || "this listing"}`);
+  lines.push(`Kerbly Compliance Check — ${address || "this listing"}`);
   lines.push(`${score}/100`);
   lines.push("");
 
@@ -27,6 +27,6 @@ export function buildComplianceReport(
   }
 
   lines.push("");
-  lines.push("Compliance assistance only — not legal advice. listpilot.co.uk");
+  lines.push("Compliance assistance only — not legal advice. kerbly.co.uk");
   return lines.join("\n");
 }
