@@ -1,4 +1,4 @@
-// Single source of truth for ListPilot form inputs. Shared by the form,
+// Single source of truth for Kerbly form inputs. Shared by the form,
 // the API route, the server-side validator, and the LLM user-message builder.
 
 export type PropertyType =

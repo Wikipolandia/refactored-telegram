@@ -24,7 +24,7 @@ export default function Hero() {
 
         <div className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
           Only <strong>24%</strong> of independent UK agents use AI for listings — vs{" "}
-          <strong>82%</strong> of large chains. ListPilot closes the gap.
+          <strong>82%</strong> of large chains. Kerbly closes the gap.
         </div>
       </div>
     </header>

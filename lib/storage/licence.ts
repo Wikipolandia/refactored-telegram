@@ -1,7 +1,7 @@
 // Guarded localStorage access for the unlock token. SSR-safe (no-ops on the
 // server / in private mode).
 
-const KEY = "listpilot_licence_token";
+const KEY = "kerbly_licence_token";
 
 export function getLicenceToken(): string | null {
   if (typeof window === "undefined") return null;

@@ -29,7 +29,7 @@ export default function MetricsPanels({ data }: { data: AnalyticsSnapshot }) {
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-8">
-      <h1 className="text-2xl font-bold text-ink">ListPilot — admin</h1>
+      <h1 className="text-2xl font-bold text-ink">Kerbly — admin</h1>
       <p className="mb-6 text-xs text-slate-400">
         In-memory metrics (reset on redeploy / cold start). Directional only — DB is v2.
       </p>
