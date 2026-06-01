@@ -1,8 +1,19 @@
+import Logo from "@/components/ui/Logo";
+
 // Landing marketing section — also a screenshot asset, so keep it clean.
 export default function Hero() {
   return (
     <header className="border-b border-slate-200 bg-white">
       <div className="mx-auto max-w-6xl px-6 py-10">
+        <div className="mb-8 flex items-center justify-between">
+          <Logo />
+          <a
+            href="#tool"
+            className="hidden rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-dark sm:inline-block"
+          >
+            Try it free
+          </a>
+        </div>
         <div className="inline-flex items-center gap-2 rounded-full bg-brand-light px-3 py-1 text-xs font-semibold text-brand-dark">
           ✓ DMCC Act 2024 + NTSELAT + Equality Act — checked automatically
         </div>

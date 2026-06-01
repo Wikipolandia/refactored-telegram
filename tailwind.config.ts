@@ -10,9 +10,9 @@ const config: Config = {
       colors: {
         ink: "#0f172a",
         brand: {
-          DEFAULT: "#0d5c4a",
-          dark: "#0a4538",
-          light: "#e6f2ee",
+          DEFAULT: "#0d6e57",
+          dark: "#0a4f3f",
+          light: "#e7f4ef",
         },
         // Compliance score bands
         clear: "#15803d",

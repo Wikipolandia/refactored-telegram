@@ -11,7 +11,9 @@ export default function HomePage() {
   return (
     <main>
       <Hero />
-      <ToolApp checkoutOnce={checkoutOnce} checkoutSub={checkoutSub} />
+      <div id="tool" className="scroll-mt-4">
+        <ToolApp checkoutOnce={checkoutOnce} checkoutSub={checkoutSub} />
+      </div>
       <footer className="border-t border-slate-200 py-6 text-center text-xs text-slate-400">
         Kerbly — compliance assistance only, not legal advice.
       </footer>
