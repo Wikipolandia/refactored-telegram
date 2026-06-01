@@ -1,75 +1,85 @@
-<header>
+# ListPilot
 
-<!--
-  <<< Author notes: Course header >>>
-  Include a 1280×640 image, course title in sentence case, and a concise description in emphasis.
-  In your repository settings: enable template repository, add your 1280×640 social image, auto delete head branches.
-  Add your open source license, GitHub uses MIT license.
--->
+Compliant UK estate-agent listing copy in ~20 seconds. Paste raw property facts →
+get a Rightmove description, key features, Instagram caption, Facebook post,
+LinkedIn update, buyer email and window card — every output checked against the
+**DMCC Act 2024**, **NTSELAT** material information, and the **Equality Act 2010 /
+Renters' Rights Act 2025** for discriminatory language. The **compliance badge** is
+the hero feature.
 
-# Introduction to GitHub
+Built with Next.js (App Router) + TypeScript + Tailwind. One server-side LLM call
+(Anthropic Claude). No database in v1.
 
-_Get started using GitHub in less than an hour._
+## Quick start
 
-</header>
+```bash
+npm install
+cp .env.example .env.local   # then fill in the values
+npm run dev                  # http://localhost:3000
+```
 
-<!--
-  <<< Author notes: Step 1 >>>
-  Choose 3-5 steps for your course.
-  The first step is always the hardest, so pick something easy!
-  Link to docs.github.com for further explanations.
-  Encourage users to open new tabs for steps!
--->
+### Where to put your LLM key
 
-## Step 1: Create a branch
+Set `LLM_API_KEY` in `.env.local` to your Anthropic API key (from
+<https://console.anthropic.com/>). It is read **only** on the server in
+`lib/anthropic/client.ts` and is never exposed to the browser — all model traffic
+goes through the `/api/*` routes.
 
-_Welcome to "Introduction to GitHub"! :wave:_
+### Environment variables (`.env.example`)
 
-**What is GitHub?**: GitHub is a collaboration platform that uses _[Git](https://docs.github.com/get-started/quickstart/github-glossary#git)_ for versioning. GitHub is a popular place to share and contribute to [open-source](https://docs.github.com/get-started/quickstart/github-glossary#open-source) software.
-<br>:tv: [Video: What is GitHub?](https://www.youtube.com/watch?v=pBy1zgt0XPc)
+| Var | Purpose |
+| --- | --- |
+| `LLM_API_KEY` | Anthropic API key (server-only). |
+| `CHECKOUT_URL_ONCE` | Paywall CTA A — "Unlock unlimited — £39 one-time". |
+| `CHECKOUT_URL_SUB` | Paywall CTA B — "Or subscribe — £19/month". |
+| `ADMIN_SECRET` | Gate for `/admin?secret=...`. |
+| `LICENCE_SECRET` | HMAC signing secret for unlock tokens. |
+| `POLAR_API_KEY` | (commented) for real licence validation in v2. |
 
-**What is a repository?**: A _[repository](https://docs.github.com/get-started/quickstart/github-glossary#repository)_ is a project containing files and folders. A repository tracks versions of files and folders. For more information, see "[About repositories](https://docs.github.com/en/repositories/creating-and-managing-repositories/about-repositories)" from GitHub Docs.
+## Deploy to Vercel
 
-**What is a branch?**: A _[branch](https://docs.github.com/en/get-started/quickstart/github-glossary#branch)_ is a parallel version of your repository. By default, your repository has one branch named `main` and it is considered to be the definitive branch. Creating additional branches allows you to copy the `main` branch of your repository and safely make any changes without disrupting the main project. Many people use branches to work on specific features without affecting any other parts of the project.
+1. Push this repo to GitHub and import it into Vercel (zero config — it's a
+   standard Next.js app).
+2. Add every variable from `.env.example` in **Project → Settings → Environment
+   Variables**.
+3. Deploy. `npm run build` must pass locally first (`npm run build`).
 
-Branches allow you to separate your work from the `main` branch. In other words, everyone's work is safe while you contribute. For more information, see "[About branches](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-branches)".
+## Routes
 
-**What is a profile README?**: A _[profile README](https://docs.github.com/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme)_ is essentially an "About me" section on your GitHub profile where you can share information about yourself with the community on GitHub.com. GitHub shows your profile README at the top of your profile page. For more information, see "[Managing your profile README](https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme)".
+- `/` — landing section + the generator tool. First generation is free; after that,
+  results are gated behind a paywall (server-enforced) showing the two price options.
+- `/admin?secret=YOUR_SECRET` — in-memory analytics: total generations, the
+  **Option A (£39) vs Option B (£19/mo) click split** (the most important v1 metric),
+  cards copied most, regenerate counts, tones chosen, compliance-score distribution
+  (incl. DL/MP/MI breakdown), and the feedback log. Wrong/blank secret → blank page.
+- `/founder` — concierge mode (no auth in v1): generate a full polished pack for a
+  named agent and copy or print it to hand-deliver.
 
-![profile-readme-example](/images/profile-readme-example.png)
+## How the paywall works (v1)
 
-### :keyboard: Activity: Your first branch
+- The first generation per IP returns the **full** set (so agents see the compliance
+  badge and every channel). Subsequent locked generations return only the Rightmove
+  summary, description and key features — the rest is server-gated, never sent to the
+  browser.
+- Up to **3 free generations per IP per hour** (then a friendly 429).
+- Paying returns an **HMAC-signed unlock token** (`/api/validate-licence`), stored in
+  localStorage and replayed as the `x-licence-token` header. Verified tokens get the
+  full set and skip the rate limit.
+- v1 accepts **any non-empty key** — replace the body of `validateLicence()` in
+  `lib/licence/validate.ts` with a real Polar call (one-function swap; the token
+  machinery stays).
 
-1. Open a new browser tab and navigate to your newly made repository. Then, work on the steps in your second tab while you read the instructions in this tab.
-2. Navigate to the **< > Code** tab in the header menu of your repository.
+> Compliance assistance only — not legal advice.
 
-   ![code-tab](/images/code-tab.png)
+## v2 TODO (prioritised)
 
-3. Click on the **main** branch drop-down.
-
-   ![main-branch-dropdown](/images/main-branch-dropdown.png)
-
-4. In the field, name your branch `my-first-branch`. In this case, the name must be `my-first-branch` to trigger the course workflow.
-5. Click **Create branch: my-first-branch** to create your branch.
-
-   ![create-branch-button](/images/create-branch-button.png)
-
-   The branch will automatically switch to the one you have just created.
-   The **main** branch drop-down bar will reflect your new branch and display the new branch name.
-
-6. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
-
-<footer>
-
-<!--
-  <<< Author notes: Footer >>>
-  Add a link to get support, GitHub status page, code of conduct, license link.
--->
-
----
-
-Get help: [Post in our discussion board](https://github.com/orgs/skills/discussions/categories/introduction-to-github) &bull; [Review the GitHub status page](https://www.githubstatus.com/)
-
-&copy; 2024 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
-
-</footer>
+1. **Real Polar licence validation** — swap the one function in `lib/licence/validate.ts`.
+2. **Pricing decision** — pick the winner from the Option A vs Option B click data.
+3. **Database** (Postgres via Vercel) — saved generations per branch, agent accounts;
+   also makes analytics + rate limiting durable (currently in-memory, lost on cold
+   start and not shared across serverless instances).
+4. **Key-features pre-population** from a branch's previous listings (branch memory).
+5. **Image suggestions** — alt text + social image brief from the listing facts.
+6. **Lettings mode** — Renters' Rights Act 2025 compliance additions.
+7. **Brand-voice training** — agent uploads past listings; the model learns their style.
+8. **Bulk import** — CSV of listings → batch generation.
