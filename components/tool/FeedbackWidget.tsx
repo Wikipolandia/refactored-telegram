@@ -6,15 +6,6 @@ export default function FeedbackWidget() {
   const [note, setNote] = useState("");
   const [sent, setSent] = useState(false);
 
-  function send(v: "up" | "down") {
-    setVote(v);
-    void fetch("/api/analytics", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type: "feedback", vote: v, note: note || undefined }),
-    }).catch(() => {});
-  }
-
   if (sent) {
     return <p className="text-sm text-slate-500">Thanks for the feedback.</p>;
   }
@@ -25,14 +16,14 @@ export default function FeedbackWidget() {
         <span className="text-sm text-slate-600">Was this useful?</span>
         <button
           type="button"
-          onClick={() => send("up")}
+          onClick={() => setVote("up")}
           className={`rounded-md border px-2 py-1 text-sm ${vote === "up" ? "border-brand bg-brand-light" : "border-slate-300"}`}
         >
           👍
         </button>
         <button
           type="button"
-          onClick={() => send("down")}
+          onClick={() => setVote("down")}
           className={`rounded-md border px-2 py-1 text-sm ${vote === "down" ? "border-risk bg-risk/10" : "border-slate-300"}`}
         >
           👎
